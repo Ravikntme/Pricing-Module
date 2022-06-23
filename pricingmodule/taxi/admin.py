@@ -5,3 +5,7 @@ from .models import *
 @admin.register(Rates)
 class RatesAdmin(admin.ModelAdmin):
     list_display=['dbp','tbp']
+
+@admin.register(Timebase)
+class TimebaseAdmin(admin.ModelAdmin):
+    list_display=['name','variable_tbp']

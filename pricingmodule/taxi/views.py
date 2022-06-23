@@ -35,8 +35,18 @@ class TripCost(APIView):
             distance = data.get('distance')
             time = data.get('time')
             DBP=Rates.objects.all().first().dbp
-            TBP = Rates.objects.all().first().tbp
-            cost = str(float(distance)*DBP + (float(time)*TBP )) + "$"
+            if time > 60 and time <75:
+                print('inside')
+                TBP = Timebase.objects.all()[1].variable_tbp
+                cost = str(float(distance)*DBP + (float(time)*TBP )) + "$"
+            elif time> 75:
+                TBP = Timebase.objects.all()[2].variable_tbp
+                cost = str(float(distance)*DBP + (float(time)*TBP )) + "$"
+            else:
+                TBP = Timebase.objects.all()[0].variable_tbp
+                cost = str(float(distance)*DBP + (float(time)*TBP )) + "$"
+            # cost = str(float(distance)*DBP + (float(time)*TBP )) + "$"
+            print('dddd',Timebase.objects.all()[1] )
             response['data']= cost
             response['message'] = 'Total Trip Cost Details fetched successfully.'
             response['status'] = 'success'
